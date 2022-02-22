@@ -53,3 +53,11 @@ a.card-link {
 .card .card-body table tr {
   text-align: center;
 }
+
+.card-body table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.card-body table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
