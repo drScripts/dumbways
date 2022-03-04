@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Project</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/detail-project.css" />
+    <link rel="stylesheet" href="./assets/css/navbar.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="left-side">
+        <img
+          src="./assets/img/dumb-ways-logo.png"
+          alt="Logo Dumbways"
+          class="brand-logo"
+        />
+
+        <ul>
+          <li><a href="./home-page-with-navbar.html">Home</a></li>
+          <li class="active"><a href="./my-project.html">My Project</a></li>
+        </ul>
+      </div>
+      <div class="right-side">
+        <a type="submit" class="custom-btn" href="./active-contact-form.html"
+          >Contact Me</a
+        >
+      </div>
+    </nav>
+
+    <section class="project-details">
+      <h1 class="section-title">Dumbways Web App</h1>
+
+      <div class="header">
+        <img
+          src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+          alt="unsplash"
+          class="thumbnail"
+        />
+        <div class="information">
+          <div class="information-item">
+            <h3 class="info-title">Duration</h3>
+            <div class="info-items">
+              <i class="fas fa-calendar-alt"></i>
+              <p id="date"></p>
+            </div>
+            <div class="info-items">
+              <i class="far fa-clock"></i>
+              <p id="duration"></p>
+            </div>
+          </div>
+          <div class="information-item">
+            <h3 class="info-title">Technologies</h3>
+            <div class="info-tech">
+              <div class="tech-items">
+                <i class="fab fa-react"></i>
+                <p>React Js</p>
+              </div>
+              <div class="tech-items">
+                <i class="fab fa-js"></i>
+                <p>JavaScript</p>
+              </div>
+              <div class="tech-items">
+                <i class="fab fa-node-js"></i>
+                <p>Node Js</p>
+              </div>
+              <div class="tech-items">
+                <img src="./assets/img/socket-io.png" alt="Socket io" />
+                <p>Socket IO</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad
+          necessitatibus soluta impedit dolorem! Deleniti odit illo nulla
+          tempora, pariatur tempore. Fugit enim soluta, tempore nesciunt
+          eligendi perferendis voluptate ut autem. Maiores iste minus placeat
+          vitae culpa nesciunt quas, aut veritatis aliquam neque corporis? Nam
+          consequatur voluptate ullam obcaecati magnam pariatur enim iusto quod
+          unde, recusandae est neque iure! Commodi, a! Distinctio architecto
+          quisquam blanditiis ratione veniam minima exercitationem est alias
+          eius, earum libero, voluptatibus asperiores saepe? Molestiae
+          perspiciatis, sint nesciunt minus atque deleniti. Libero obcaecati
+          pariatur laudantium incidunt deserunt praesentium.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Reprehenderit cupiditate assumenda id incidunt officia culpa quo quas
+          nihil quasi quaerat, dolorem aspernatur porro eligendi ipsa explicabo
+          rerum cumque, earum dolores? Tempora, numquam. Reprehenderit quibusdam
+          libero deserunt placeat dolorem officiis vel maiores accusantium eum?
+          Numquam ipsam quae iste quo? Ab est saepe voluptate totam iste
+          dolorem, tempore dolore voluptatum quia cumque!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+          perferendis, aliquid a quasi blanditiis minima consectetur, eos amet
+          deleniti tenetur nisi ipsa in neque laboriosam hic iure nobis.
+          Similique, expedita?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos error
+          placeat velit, hic dignissimos quia, molestiae tempore voluptatum
+          similique quisquam dicta voluptate maxime sit tenetur. Sapiente, natus
+          alias. Beatae, facere? Ipsum cum quidem neque nulla eos voluptatibus
+          nihil, impedit sit provident error asperiores sint aperiam, explicabo
+          delectus illo aliquam velit. Placeat, ipsum! Laborum perferendis
+          officia temporibus voluptates porro aperiam error. Tenetur ipsam minus
+          velit quas sint voluptates ipsa ipsum nobis? Maiores in facere soluta,
+          veritatis autem similique ex blanditiis expedita adipisci commodi unde
+          aperiam suscipit optio nesciunt deleniti quod illo? Nemo provident
+          nobis libero excepturi quos quisquam enim nam labore assumenda
+          deserunt ipsam cupiditate deleniti cum natus soluta asperiores, quae
+          fugit dolorum aperiam accusamus ducimus fuga quo aspernatur. Suscipit,
+          quos. Labore perferendis, aliquam maiores iste, veritatis vel sint in
+          culpa quia ullam rerum soluta sed quos eveniet consectetur dolorem?
+          Deleniti culpa tenetur modi excepturi consequuntur totam ea ut ratione
+          corrupti!
+        </p>
+      </div>
+    </section>
+
+    <script src="./assets/js/my-project.js"></script>
+    <script>
+      const dateElement = document.getElementById("date");
+      dateElement.innerHTML = formatFullDate();
+      document.getElementById("duration").innerHTML = getDurationString(
+        "03/04/2022",
+        "03/12/2022"
+      );
+
+      function formatFullDate() {
+        const monthNames = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        const start = new Date("03/04/2022");
+        const end = new Date("03/12/2022");
+
+        const formated = `${start.getDate()} ${
+          monthNames[start.getMonth()]
+        } ${start.getFullYear()} - ${end.getDate()} ${
+          monthNames[end.getMonth()]
+        } ${end.getFullYear()}`;
+        return formated;
+      }
+    </script>
+  </body>
+</html>

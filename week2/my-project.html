@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Project</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/my-project.css" />
+    <link rel="stylesheet" href="./assets/css/navbar.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="left-side">
+        <img
+          src="./assets/img/dumb-ways-logo.png"
+          alt="Logo Dumbways"
+          class="brand-logo"
+        />
+
+        <ul>
+          <li><a href="./home-page-with-navbar.html">Home</a></li>
+          <li class="active"><a href="#">My Project</a></li>
+        </ul>
+      </div>
+      <div class="right-side">
+        <a type="submit" class="custom-btn" href="./active-contact-form.html"
+          >Contact Me</a
+        >
+      </div>
+    </nav>
+
+    <section class="form-container">
+      <h1>Add My Project</h1>
+      <form class="form-field">
+        <div class="form-controller">
+          <label for="project-name">Project Name</label>
+          <input id="project-name" type="text" />
+        </div>
+        <div class="double-form">
+          <div class="form-controller">
+            <label for="start">Start Date</label>
+            <input id="start" type="date" />
+          </div>
+          <div class="form-controller">
+            <label for="end">End Date</label>
+            <input id="end" type="date" />
+          </div>
+        </div>
+        <div class="form-controller">
+          <label for="description">Description</label>
+          <textarea id="description"></textarea>
+        </div>
+        <div class="form-controller-costum mt-20">
+          <label>Technologies</label>
+          <div class="multiple-form">
+            <div class="form-costum">
+              <div class="check-container">
+                <input
+                  name="tech"
+                  type="checkbox"
+                  id="nodejs"
+                  value="Node Js"
+                />
+                <div class="check-custom"></div>
+              </div>
+              <label for="nodejs" class="lighter">Node Js</label>
+            </div>
+            <div class="form-costum">
+              <div class="check-container">
+                <input
+                  name="tech"
+                  type="checkbox"
+                  id="nextjs"
+                  value="Next Js"
+                />
+                <div class="check-custom"></div>
+              </div>
+              <label for="nextjs" class="lighter">Next Js</label>
+            </div>
+            <div class="form-costum">
+              <div class="check-container">
+                <input
+                  name="tech"
+                  type="checkbox"
+                  id="reactjs"
+                  value="React Js"
+                />
+                <div class="check-custom"></div>
+              </div>
+              <label for="reactjs" class="lighter">React Js</label>
+            </div>
+            <div class="form-costum">
+              <div class="check-container">
+                <input
+                  name="tech"
+                  type="checkbox"
+                  id="typescript"
+                  value="TypeScript"
+                />
+                <div class="check-custom"></div>
+              </div>
+              <label for="typescript" class="lighter">TypeScript</label>
+            </div>
+          </div>
+        </div>
+        <div class="custom-form mt-20">
+          <label for="project-image">Upload Image</label>
+          <div class="form-icon">
+            <div class="input-custom-file">
+              <button onclick="buttonChooseTrigger()" type="button">
+                Choose
+              </button>
+              <input id="project-image" type="file" />
+            </div>
+            <i class="fas fa-paperclip"></i>
+          </div>
+        </div>
+        <div class="button-container">
+          <button type="button" onclick="onSubmit()">Submit</button>
+          <button type="reset" style="display: none" id="reset"></button>
+        </div>
+      </form>
+    </section>
+
+    <section class="project-field">
+      <h1 class="title-section">My Project</h1>
+      <div class="project-list" id="project-list">
+        <div class="project-card">
+          <a href="./detail-project.html">
+            <img
+              src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+              alt=""
+              class="card-thumbnail"
+            />
+            <h4 class="card-title">Dumbways Mobile App - 2021</h4>
+            <div class="card-subtitle">durasi : 3 bulan</div>
+            <p class="description">
+              App that used for dumbways student, it was deployed and can
+              downloaded on playstore Happy download
+            </p>
+            <div class="list-icons">
+              <img
+                src="./assets/img/google-play.png"
+                alt="https://iconscout.com/icons/google-play"
+              />
+              <img
+                src="./assets/img/android.png"
+                alt="https://iconscout.com/icons/java"
+              />
+              <img
+                src="./assets/img/java.png"
+                alt="https://iconscout.com/icons/android"
+              />
+            </div>
+            <div class="button-field">
+              <a href="#" class="btn">Edit</a>
+              <a href="#" class="btn">Delete</a>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <script src="./assets/js/my-project.js"></script>
+  </body>
+</html>

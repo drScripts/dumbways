@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #e3e7eb;
+  font-family: "Poppins", sans-serif;
+}
+
+.flex-container {
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.main-card {
+  background-color: white;
+  width: 85%;
+  border-radius: 5px;
+  box-shadow: 2px 10px 20px 10px rgba(0, 0, 0, 0.2);
+}
+
+.main-card .container {
+  margin: 0 auto;
+  padding: 20px 40px;
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-card .container .flex-left {
+  flex: 2;
+}
+
+.main-card .container .flex-right {
+  flex: 1;
+}
+
+.main-card .container h1 {
+  margin-bottom: 10px;
+}
+
+.main-card .container p {
+  text-align: justify;
+  margin-bottom: 10px;
+}
+
+.main-card .container .contact-button {
+  width: 150px;
+  background-color: #111727;
+  color: white;
+  height: 40px;
+  border-radius: 50px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-right: 30px;
+  font-size: 18px;
+}
+
+.main-card .container .contact-button:hover {
+  cursor: pointer;
+}
+
+.main-card .container .download-my-cv {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+}
+
+.main-card .container .download-my-cv img {
+  margin-left: 10px;
+  width: 24px;
+}
+
+.social-links {
+  margin-top: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.social-links a {
+  text-decoration: none;
+  color: white;
+}
+
+.social-links a .social-icon {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  background-color: black;
+}
+
+.profile-card {
+  margin: 20px auto;
+  width: 350px;
+  border-radius: 8px;
+  background-color: rgb(253, 250, 250);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+  padding-bottom: 10px;
+}
+
+.profile-card img {
+  width: 100%;
+  height: 340px;
+  border-radius: 8px 8px 0 0;
+}
+
+.profile-card .card-body {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.profile-card .card-body p {
+  text-align: center;
+  font-weight: 100;
+}
+
+.main-card .container .card-link {
+  text-decoration: none;
+  color: black;
+}
+
+/* @media only screen and (max-width: 600px) {
+    .main-card {
+      width: 90%;
+    }
+  
+    .main-card .container {
+      width: 80%;
+    }
+  
+    .main-card .container p {
+      font-size: 14px;
+    }
+  }
+  
+  @media only screen and (min-width: 600px) {
+    .main-card {
+      width: 90%;
+    }
+  
+    .main-card .container {
+      width: 75%;
+    }
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .main-card {
+      width: 80%;
+    }
+  
+    .main-card .container {
+      width: 60%;
+    }
+  } */
