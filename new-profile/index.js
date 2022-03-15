@@ -161,7 +161,7 @@ app.get("/contact", (req, res) => {
 
 app.post("/contact", (req, res) => {
   const data = req.body;
-
+  console.log(data);
   res.redirect("/contact");
 });
 
