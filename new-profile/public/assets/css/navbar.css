@@ -1,0 +1,27 @@
+nav .brand-logo {
+  width: 50px;
+}
+
+nav ul li.active a {
+  color: black;
+  font-weight: bolder;
+}
+
+nav ul a {
+  color: rgb(158, 158, 158);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav a.custom-btn {
+  text-decoration: none;
+  background-color: #111727;
+  color: white;
+  font-size: 17px;
+  width: 130px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
