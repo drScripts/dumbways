@@ -1,0 +1,93 @@
+{{> header }}
+{{> navbar }}
+<section class="form-container">
+  <h1>Add My Project</h1>
+  <form class="form-field" action='/add-project' method='post' enctype='multipart/form-data' >
+    <div class="form-controller">
+      <label for="project-name">Project Name</label>
+      <input id="project-name" name='name' type="text" required />
+    </div>
+    <div class="row my-3">
+      <div class="col-md-6">
+        <div class="form-controller">
+          <label for="start">Start Date</label>
+          <input id="start" name='start' type="date" required />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-controller">
+          <label for="end">End Date</label>
+          <input id="end" name='end' type="date" required />
+        </div>
+      </div>
+    </div>
+    <div class="form-controller">
+      <label for="description">Description</label>
+      <textarea id="description" name='description' required></textarea>
+    </div>
+    <div class="form-controller-costum mt-20">
+      <label>Technologies</label>
+      <div class="row multiple-form mt-2">
+        <div class="col-md-6 mb-2">
+          <div class="form-costum d-flex gap-4">
+            <div class="check-container">
+              <input name="tech" type="checkbox" id="nodejs" value="nodejs"  />
+              <div class="check-custom"></div>
+            </div>
+            <label for="nodejs" class="lighter">Node Js</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-costum d-flex gap-4">
+            <div class="check-container">
+              <input name="tech" type="checkbox" id="nextjs" value="nextjs" />
+              <div class="check-custom"></div>
+            </div>
+            <label for="nextjs" class="lighter">Next Js</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-costum d-flex gap-4">
+            <div class="check-container">
+              <input name="tech" type="checkbox" id="reactjs" value="reactjs" />
+              <div class="check-custom"></div>
+            </div>
+            <label for="reactjs" class="lighter">React Js</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-costum d-flex gap-4">
+            <div class="check-container">
+              <input
+                name="tech"
+                type="checkbox"
+                id="typescript"
+                value="typescript"
+              />
+              <div class="check-custom"></div>
+            </div>
+            <label for="typescript" class="lighter">TypeScript</label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="custom-form mt-20">
+      <label for="project-image">Upload Image</label>
+      <div class="form-icon">
+        <div class="input-custom-file">
+          <button onclick="buttonChooseTrigger()" type="button">
+            Choose
+          </button>
+          <input id="project-image" type="file" name='image' accept="image/*" required />
+        </div>
+        <i class="fas fa-paperclip"></i>
+      </div>
+    </div>
+    <div class="button-container">
+      <button type="submit" >Submit</button> 
+    </div>
+  </form>
+</section>
+
+{{> footer }}
