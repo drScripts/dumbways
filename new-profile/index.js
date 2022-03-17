@@ -19,10 +19,7 @@ const multer = require("multer");
 const os = require("os");
 const fs = require("fs");
 const path = require("path");
-
 const upload = multer({ dest: os.tmpdir() });
-
-const PORT = 3000;
 
 app.set("view engine", "hbs");
 app.use(express.urlencoded({ extended: false }));
@@ -192,6 +189,7 @@ app.post("/contact", (req, res) => {
   res.redirect("/contact");
 });
 
+const PORT = 3000;
 app.listen(PORT, function () {
   console.log(`Server running on http://localhost:${PORT}`);
 });
