@@ -1,13 +1,11 @@
 function deleteConfirm(id, name) {
-  event.preventDefault();
-
   Swal.fire({
     title: `Are you sure want to delete ${name} project?`,
     icon: "question",
     showCancelButton: true,
     showCloseButton: true,
   }).then((res) => {
-    const { isConfirmed, isDenied, isDismissed } = res;
+    const { isConfirmed } = res;
     if (isConfirmed) {
       const trigerredLink = document.querySelector(`a[data-delete="${id}"]`);
       trigerredLink.click();
@@ -22,7 +20,7 @@ function updateConfirm(id) {
     showCancelButton: true,
     showCloseButton: true,
   }).then((res) => {
-    const { isConfirmed, isDenied, isDismissed } = res;
+    const { isConfirmed } = res;
     if (isConfirmed) {
       const trigerredLink = document.querySelector(`form[data-update="${id}"]`);
       trigerredLink.submit();
@@ -39,7 +37,7 @@ function insertConfirm() {
     confirmButtonText: "yes",
     allowOutsideClick: false,
   }).then((res) => {
-    const { isConfirmed, isDenied, isDismissed } = res;
+    const { isConfirmed } = res;
     if (isConfirmed) {
       const form = document.getElementsByTagName("form")[0];
       form.submit();
