@@ -3,7 +3,7 @@ function deleteConfirm(id, name) {
 
   Swal.fire({
     title: `Are you sure want to delete ${name} project?`,
-    icon: "warning",
+    icon: "question",
     showCancelButton: true,
     showCloseButton: true,
   }).then((res) => {
@@ -18,7 +18,7 @@ function deleteConfirm(id, name) {
 function updateConfirm(id) {
   Swal.fire({
     title: `Are you sure want to update the project?`,
-    icon: "warning",
+    icon: "question",
     showCancelButton: true,
     showCloseButton: true,
   }).then((res) => {
@@ -33,7 +33,7 @@ function updateConfirm(id) {
 function insertConfirm() {
   Swal.fire({
     title: `Are you sure want to add the project?`,
-    icon: "warning",
+    icon: "question",
     showCancelButton: true,
     showCloseButton: true,
     confirmButtonText: "yes",
