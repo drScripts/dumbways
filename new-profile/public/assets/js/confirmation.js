@@ -46,3 +46,12 @@ function insertConfirm() {
     }
   });
 }
+
+function successAlert(message) {
+  Swal.fire({
+    icon: "success",
+    title: "Success",
+    text: message,
+    confirmButtonText: "Continue",
+  });
+}

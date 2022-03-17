@@ -5,5 +5,8 @@
     <script src="/public/assets/js/contact.js"></script>
     <script src="/public/assets/js/my-project.js"></script>
     <script src="/public/assets/js/confirmation.js"></script>
+    {{#if success_message}}
+      {{alertHtml success_message "successAlert"}}
+    {{/if}} 
   </body>
 </html>

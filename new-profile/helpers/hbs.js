@@ -127,8 +127,13 @@ function getIconNamed(tech) {
 function safeString(str) {
   let newStr = new hbs.handlebars.SafeString(
     str.replaceAll(`\r\n`.toString(), "<br/>")
-  ); 
+  );
   return newStr;
+}
+
+function alertHtml(str, functionName) {
+  const returnStr = `<script>${functionName}("${str}")</script>`;
+  return new hbs.handlebars.SafeString(returnStr);
 }
 
 module.exports = {
@@ -139,4 +144,5 @@ module.exports = {
   inputDateValueBuild,
   checkSelectedTech,
   safeString,
+  alertHtml,
 };

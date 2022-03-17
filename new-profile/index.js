@@ -11,6 +11,7 @@ const {
   inputDateValueBuild,
   checkSelectedTech,
   safeString,
+  alertHtml,
 } = require("./helpers/hbs");
 
 const Project = require("./models/Project");
@@ -48,11 +49,16 @@ hbs.registerHelper("getIconDetail", getIconDetail);
 hbs.registerHelper("getInputDateValue", inputDateValueBuild);
 hbs.registerHelper("checkSelectedTech", checkSelectedTech);
 hbs.registerHelper("safeString", safeString);
+hbs.registerHelper("alertHtml", alertHtml);
 
 app.get("/", async (req, res) => {
   const projects = await Project.getAll();
+  const returnData = {
+    projects: projects,
+    success_message: req.flash("success_message")[0],
+  };
 
-  res.render("index", { projects: projects });
+  res.render("index", returnData);
 });
 
 app.get("/add-project", (req, res) => {
@@ -63,7 +69,11 @@ app.post("/add-project", upload.single("image"), async (req, res) => {
   const { name, start, end, description, tech } = req.body;
   const file = req.file;
 
-  const imageUrl = `/public/upload/${file.originalname}`;
+  let fileExt = file.originalname.split(".");
+  fileExt = "." + fileExt[fileExt.length - 1];
+  const newFileName = file.filename + fileExt;
+
+  const imageUrl = `/public/upload/${newFileName}`;
   const pathStorage = path.join(__dirname, imageUrl);
 
   const project = new Project({
@@ -83,6 +93,7 @@ app.post("/add-project", upload.single("image"), async (req, res) => {
     src.pipe(dest);
 
     src.on("end", function () {
+      req.flash("success_message", "Success Add Data!");
       res.redirect("/");
     });
   } else {
@@ -120,6 +131,7 @@ app.post("/update-project/:id", upload.single("image"), async (req, res) => {
     tech: tech,
   });
 
+  req.flash("success_message", `Success Update ${name} Project!`);
   if (file) {
     const currentProject = await Project.find(id);
     const currentImagePath = path.join(__dirname, currentProject.image_url);
@@ -163,7 +175,10 @@ app.get("/delete-project/:id", async (req, res) => {
 
     Project.delete(id);
   }
-
+  req.flash(
+    "success_message",
+    `Success Delete ${projectSelected.title} Project!`
+  );
   res.redirect("/");
 });
 
