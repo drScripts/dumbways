@@ -82,7 +82,8 @@
                 </div>
                 <div class="button-field">
                   <a href="/update-project/{{this.id}}" class="btn">Edit</a>
-                  <a href="/delete-project/{{this.id}}" class="btn">Delete</a>
+                  <a href="/delete-project/{{this.id}}" data-delete='{{this.id}}' class="hidden">Delete</a>
+                  <a href="#" onclick='deleteConfirm({{this.id}},"{{this.title}}")' class="btn">Delete</a>
                 </div>
               </a>
             </div>

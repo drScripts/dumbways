@@ -1,6 +1,8 @@
 const express = require("express");
 const hbs = require("hbs");
 const app = express();
+const session = require("express-session");
+const flash = require("connect-flash");
 const {
   getDuration,
   iconBuild,
@@ -11,7 +13,6 @@ const {
   safeString,
 } = require("./helpers/hbs");
 
-const client = require("./db");
 const Project = require("./models/Project");
 const multer = require("multer");
 const os = require("os");
@@ -25,6 +26,17 @@ const PORT = 3000;
 app.set("view engine", "hbs");
 app.use(express.urlencoded({ extended: false }));
 app.use("/public", express.static(__dirname + "/public"));
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: true,
+    },
+  })
+);
+app.use(flash());
 
 hbs.registerPartials(__dirname + "/views/partials");
 
@@ -165,11 +177,6 @@ app.post("/contact", (req, res) => {
   res.redirect("/contact");
 });
 
-client
-  .connect()
-  .then(() => {
-    app.listen(PORT, function () {
-      console.log(`Server running on http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => console.log(err));
+app.listen(PORT, function () {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

@@ -2,7 +2,7 @@
 {{> navbar }}
 <section class="form-container">
   <h1>Add My Project</h1>
-  <form class="form-field" action='/update-project/{{project.id}}' method='post' enctype='multipart/form-data' >
+  <form class="form-field" action='/update-project/{{project.id}}' data-update="{{project.id}}" method='post' enctype='multipart/form-data' >
     <div class="form-controller">
       <label for="project-name">Project Name</label>
       <input id="project-name" name='name' type="text" value='{{ project.title }}' required />
@@ -91,7 +91,7 @@
       </div>
     </div>
     <div class="button-container">
-      <button type="submit" >Submit</button> 
+      <button type="button" onclick='updateConfirm({{project.id}})' >Submit</button> 
     </div>
   </form>
 </section>
