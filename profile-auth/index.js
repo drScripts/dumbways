@@ -23,7 +23,6 @@ const fs = require("fs");
 const path = require("path");
 const upload = multer({ dest: os.tmpdir() });
 const { compareSync } = require("bcryptjs");
-const { user } = require("pg/lib/defaults");
 
 app.set("view engine", "hbs");
 app.use(express.urlencoded({ extended: false }));
@@ -53,19 +52,26 @@ hbs.registerHelper("checkSelectedTech", checkSelectedTech);
 hbs.registerHelper("safeString", safeString);
 hbs.registerHelper("alertHtml", alertHtml);
 
+const returnObj = { user: null }
+
+app.use((req, res, next) => {
+  returnObj.user = req.session.user;
+  next();
+})
+
 app.get("/", async (req, res) => {
   const projects = await Project.getAll();
   const returnData = {
     projects: projects,
     success_message: req.flash("success_message")[0],
-    user: req.session.user,
+    ...returnObj
   };
 
   res.render("index", returnData);
 });
 
 app.get("/add-project", (req, res) => {
-  res.render("add-project", { user: req.session.user });
+  res.render("add-project", returnObj);
 });
 
 app.post("/add-project", upload.single("image"), async (req, res) => {
@@ -110,14 +116,14 @@ app.get("/detail-project/:id", async (req, res) => {
 
   const project = await Project.find(id);
 
-  res.render("detail-project", { project, user: req.session.user });
+  res.render("detail-project", { project, ...returnObj });
 });
 
 app.get("/update-project/:id", async (req, res) => {
   const { id } = req.params;
 
   const project = await Project.find(id);
-  res.render("edit-project", { project, user: req.session.user });
+  res.render("edit-project", { project, ...returnObj });
 });
 
 app.post("/update-project/:id", upload.single("image"), async (req, res) => {
@@ -186,7 +192,7 @@ app.get("/delete-project/:id", async (req, res) => {
 });
 
 app.get("/contact", (req, res) => {
-  res.render("contact", { user: req.session.user });
+  res.render("contact", returnObj);
 });
 
 app.post("/contact", (req, res) => {
