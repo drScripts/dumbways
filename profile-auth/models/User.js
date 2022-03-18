@@ -16,13 +16,12 @@ class User {
         await client.query(query);
         return true;
       } catch (err) {
-        console.log(err);
-        return false;
+        throw err;
       }
     };
 
     if (this.id) {
-      this.update = () => {
+      this.update = async () => {
         try {
           let query = `UPDATE users SET  name='${this.name}',email='${this.email}'`;
           if (this.password) {
@@ -42,7 +41,7 @@ class User {
     }
   }
 
-  static findByEmail = (email) => {
+  static findByEmail = async (email) => {
     try {
       const query = `SELECT * FROM users WHERE email='${email}'`;
       const { rows, rowCount } = await client.query(query);

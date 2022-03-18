@@ -15,11 +15,15 @@ const {
 } = require("./helpers/hbs");
 
 const Project = require("./models/Project");
+const User = require("./models/User");
+
 const multer = require("multer");
 const os = require("os");
 const fs = require("fs");
 const path = require("path");
 const upload = multer({ dest: os.tmpdir() });
+const { compareSync } = require("bcryptjs");
+const { user } = require("pg/lib/defaults");
 
 app.set("view engine", "hbs");
 app.use(express.urlencoded({ extended: false }));
@@ -30,6 +34,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
     },
   })
@@ -53,13 +58,14 @@ app.get("/", async (req, res) => {
   const returnData = {
     projects: projects,
     success_message: req.flash("success_message")[0],
+    user: req.session.user,
   };
 
   res.render("index", returnData);
 });
 
 app.get("/add-project", (req, res) => {
-  res.render("add-project");
+  res.render("add-project", { user: req.session.user });
 });
 
 app.post("/add-project", upload.single("image"), async (req, res) => {
@@ -104,14 +110,14 @@ app.get("/detail-project/:id", async (req, res) => {
 
   const project = await Project.find(id);
 
-  res.render("detail-project", { project });
+  res.render("detail-project", { project, user: req.session.user });
 });
 
 app.get("/update-project/:id", async (req, res) => {
   const { id } = req.params;
 
   const project = await Project.find(id);
-  res.render("edit-project", { project });
+  res.render("edit-project", { project, user: req.session.user });
 });
 
 app.post("/update-project/:id", upload.single("image"), async (req, res) => {
@@ -180,7 +186,7 @@ app.get("/delete-project/:id", async (req, res) => {
 });
 
 app.get("/contact", (req, res) => {
-  res.render("contact");
+  res.render("contact", { user: req.session.user });
 });
 
 app.post("/contact", (req, res) => {
@@ -190,10 +196,62 @@ app.post("/contact", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("register");
+  if (req.session.user) return res.redirect("/");
+
+  res.render("register", { error_message: req.flash("error_message")[0] });
 });
 
-app.get("/login", (req, res) => {});
+app.post("/register", async (req, res) => {
+  const { name, email, password } = req.body;
+
+  try {
+    const user = new User({ name, email, password });
+    await user.save();
+
+    delete user.password;
+    req.session.user = user;
+
+    req.flash("success_message", "Success Register!");
+    res.redirect("/")
+  } catch (err) {
+
+    if (err.constraint === "users_email_key") {
+      req.flash("error_message", `User with email ${email} already registered!`);
+    }
+
+    res.redirect("/register");
+  }
+
+})
+
+app.get("/login", (req, res) => {
+  if (req.session.user) return res.redirect("/");
+  res.render("login", { error_message: req.flash("error_message")[0] })
+});
+
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findByEmail(email);
+    if (!user) throw Error(`Can't find user with email ${email}`);
+
+    const isMatch = compareSync(password, user.password);
+
+    if (!isMatch) throw Error("Wrong password!");
+
+    req.flash("success_message", "Success Login! Welcome back!");
+
+    delete user.password;
+    req.session.user = user;
+
+    res.redirect("/");
+  } catch (err) {
+    req.flash("error_message", err.message);
+    res.redirect("/login");
+  }
+
+});
 
 const PORT = 3000;
 app.listen(PORT, function () {

@@ -27,6 +27,17 @@
           <a class="nav-link" href="/add-project">Add Project</a>
         </li>
       </ul>
+
+      {{#unless user}}
+        <ul class="navbar-nav me-3">
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+        </ul>
+      {{/unless}}
       <a type="submit" class="custom-btn" href="/contact">Contact Me</a>
     </div>
   </div>

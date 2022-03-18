@@ -53,3 +53,12 @@ function successAlert(message) {
     confirmButtonText: "Continue",
   });
 }
+
+function errorAlert(message) {
+  Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: message,
+    confirmButtonText: "Continue",
+  });
+}
