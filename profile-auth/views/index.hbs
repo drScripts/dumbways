@@ -1,0 +1,96 @@
+{{> header }}
+{{> navbar }}
+<div class="d-flex justify-content-center my-5">
+  <div class="main-card card shadow">
+    <div class="container d-flex py-3 px-4">
+      <div class="row align-items-center">
+        <div class="col-md-8 col-sm-12 col-12">
+          <h1>Hi Welcome to my hut</h1>
+          <p>
+            Perkenalkan nama saya Nathanael Valentino Davis, saya berasal dari
+            SMA Talenta Bandung. saya memiliki hobby membuat sebuah aplikasi
+            baik mobile maupun web. Saya pernah membuat aplikasi Web dengan
+            menggunakan Laravel, CI, Express beserta dengan REST APInya. Untuk
+            mobile saya pernah membuat dengan menggunakan native dengan kotlin,
+            REACT Native, Flutter namun saya lebih prefer untuk emnggunakan
+            React Native.
+          </p>
+
+          <div class="d-flex align-items-center">
+            <button class="contact-button">Contact</button>
+            <a href="#" class="download-my-cv">
+              download CV
+              <img src="/public/assets/img/download-icon.png" alt="Icons" />
+            </a>
+          </div>
+
+          <div
+            class="d-flex mt-4 gap-4 justify-content-md-start justify-content-center social-links"
+          >
+            <a
+              href="https://www.linkedin.com/in/nathanael-valentino-1b8324203/"
+            ><div class="social-icon">
+                <i class="fab fa-linkedin-in"></i></div></a>
+            <a href="https://www.instagram.com/nvdavis_/"><div
+                class="social-icon"
+              >
+                <i class="fab fa-instagram"></i></div></a>
+            <a href="https://www.facebook.com/nathan.nathanael.108/"><div
+                class="social-icon"
+              >
+                <i class="fab fa-facebook-f"></i></div></a>
+            <a href="https://twitter.com/drScripts2"><div class="social-icon"><i
+                  class="fab fa-twitter"
+                ></i></div></a>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12 col-12">
+          <a href="https://github.com/drScripts/dumbways" class="card-link">
+            <div class="profile-card">
+              <img src="/public/assets/img/profile.jpg" alt="Profile" />
+              <div class="card-body">
+                <h5 class="card-title">Nathanael Valentino Davis</h5>
+                <p>Fullstack Developer</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="project-field bg-grey-soft p-4">
+  <div class="container">
+    <h1 class="title-section text-center">My Project</h1>
+    
+    <div class="project-list row">
+        {{#each projects }}
+          <div class="col-md-4 col-12 mb-4">
+            <div class="project-card">
+              <a href="/detail-project/{{this.id}}">
+                <img
+                  src="{{this.image_url}}"
+                  alt=""
+                  class="card-thumbnail"
+                />
+                <h4 class="card-title my-2">{{ this.title }}</h4>
+                <div class="card-subtitle">durasi : {{getDuration this.end_date this.start_date }}</div>
+                <p class="description">
+                  {{ this.description }}
+                </p>
+                <div class="list-icons d-flex gap-3" id="list-icons"> 
+                  {{iconBuild this.tech }}
+                </div>
+                <div class="button-field">
+                  <a href="/update-project/{{this.id}}" class="btn">Edit</a>
+                  <a href="/delete-project/{{this.id}}" data-delete='{{this.id}}' class="hidden">Delete</a>
+                  <a href="#" onclick='deleteConfirm({{this.id}},"{{this.title}}")' class="btn">Delete</a>
+                </div>
+              </a>
+            </div>
+          </div>
+        {{/each}}
+    </div>
+  </div>
+</section>
+{{> footer }}

@@ -1,0 +1,38 @@
+{{> header }}
+{{> navbar }}
+
+<section class="project-details">
+  <h1 class="section-title">Dumbways Web App</h1>
+
+  <div class="header">
+    <img
+      src="{{ project.image_url }}"
+      alt="unsplash"
+      class="thumbnail"
+    />
+    <div class="information">
+      <div class="information-item">
+        <h3 class="info-title">Duration</h3>
+        <div class="info-items">
+          <i class="fas fa-calendar-alt"></i>
+          <p id="date">{{getFormatedDate project.start_date project.end_date}}</p>
+        </div>
+        <div class="info-items">
+          <i class="far fa-clock"></i>
+          <p id="duration">{{getDuration project.end_date project.start_date}}</p>
+        </div>
+      </div>
+      <div class="information-item">
+        <h3 class="info-title">Technologies</h3>
+        <div class="info-tech">
+          {{getIconDetail project.tech}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    {{{ safeString project.description }}}
+  </div>
+</section>
+
+{{> footer }}
