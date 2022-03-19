@@ -62,3 +62,19 @@ function errorAlert(message) {
     confirmButtonText: "Continue",
   });
 }
+
+function questionAlert(message, redirectUrl = "/") {
+  Swal.fire({
+    title: message,
+    icon: "question",
+    showCancelButton: true,
+    showCloseButton: true,
+    confirmButtonText: "yes",
+    allowOutsideClick: false,
+  }).then((res) => {
+    const { isConfirmed } = res;
+    if (isConfirmed) {
+      document.location = redirectUrl;
+    }
+  });
+}

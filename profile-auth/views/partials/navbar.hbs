@@ -28,16 +28,24 @@
         </li>
       </ul>
 
-      {{#unless user}}
-        <ul class="navbar-nav me-3">
+      <ul class="navbar-nav me-3">
+        {{#if user}}
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:void(0)"
+              onclick='questionAlert("Are you sure want to logout?","/logout")'
+            >logout</a>
+          </li>
+        {{else}}
           <li class="nav-item">
             <a class="nav-link" href="/register">Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/login">Login</a>
           </li>
-        </ul>
-      {{/unless}}
+        {{/if}}
+      </ul>
       <a type="submit" class="custom-btn" href="/contact">Contact Me</a>
     </div>
   </div>

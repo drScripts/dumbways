@@ -46,7 +46,7 @@ class User {
       const query = `SELECT * FROM users WHERE email='${email}'`;
       const { rows, rowCount } = await client.query(query);
 
-      if (rowCount < 0) {
+      if (rowCount <= 0) {
         return null;
       }
 

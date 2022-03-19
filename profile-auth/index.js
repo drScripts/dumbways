@@ -52,19 +52,19 @@ hbs.registerHelper("checkSelectedTech", checkSelectedTech);
 hbs.registerHelper("safeString", safeString);
 hbs.registerHelper("alertHtml", alertHtml);
 
-const returnObj = { user: null }
+const returnObj = { user: null };
 
 app.use((req, res, next) => {
   returnObj.user = req.session.user;
   next();
-})
+});
 
 app.get("/", async (req, res) => {
   const projects = await Project.getAll();
   const returnData = {
     projects: projects,
     success_message: req.flash("success_message")[0],
-    ...returnObj
+    ...returnObj,
   };
 
   res.render("index", returnData);
@@ -201,9 +201,19 @@ app.post("/contact", (req, res) => {
   res.redirect("/contact");
 });
 
-app.get("/register", (req, res) => {
-  if (req.session.user) return res.redirect("/");
+app.get("/logout", (req, res) => {
+  req.session.user = undefined;
 
+  req.flash("success_message", "Success Logout, Goodbye!");
+  res.redirect("/");
+});
+
+app.use((req, res, next) => {
+  if (req.session.user) return res.redirect("/");
+  next();
+});
+
+app.get("/register", (req, res) => {
   res.render("register", { error_message: req.flash("error_message")[0] });
 });
 
@@ -214,25 +224,25 @@ app.post("/register", async (req, res) => {
     const user = new User({ name, email, password });
     await user.save();
 
-    delete user.password;
-    req.session.user = user;
-
-    req.flash("success_message", "Success Register!");
-    res.redirect("/")
+    req.flash("success_message", "Success Register! Please Login !");
+    res.redirect("/login");
   } catch (err) {
-
     if (err.constraint === "users_email_key") {
-      req.flash("error_message", `User with email ${email} already registered!`);
+      req.flash(
+        "error_message",
+        `User with email ${email} already registered!`
+      );
     }
 
     res.redirect("/register");
   }
-
-})
+});
 
 app.get("/login", (req, res) => {
-  if (req.session.user) return res.redirect("/");
-  res.render("login", { error_message: req.flash("error_message")[0] })
+  res.render("login", {
+    error_message: req.flash("error_message")[0],
+    success_message: req.flash("success_message")[0],
+  });
 });
 
 app.post("/login", async (req, res) => {
@@ -256,7 +266,6 @@ app.post("/login", async (req, res) => {
     req.flash("error_message", err.message);
     res.redirect("/login");
   }
-
 });
 
 const PORT = 3000;
