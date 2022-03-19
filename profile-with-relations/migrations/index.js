@@ -59,7 +59,7 @@ const createTableUsers = async () => {
   const query = `CREATE TABLE users(
         id INT NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL UNIQUE,
         password TEXT NOT NULL,
         created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP

@@ -10,6 +10,7 @@ class Project {
     description,
     tech,
     image_url,
+    user_id,
   }) {
     this.id = id;
     this.title = title;
@@ -18,8 +19,13 @@ class Project {
     this.description = description;
     this.tech = tech;
     this.image_url = image_url;
+    this.user_id = user_id;
     this.save = async () => {
-      const query = `INSERT INTO projects (title,start_date,end_date,description,image_url,tech) VALUES ('${this.title}','${this.start_date}','${this.end_date}',($2),'${this.image_url}',($1))`;
+      const query = `INSERT INTO projects (title,start_date,end_date,description,image_url,tech,user_id) VALUES ('${
+        this.title
+      }','${this.start_date}','${this.end_date}',($2),'${
+        this.image_url
+      }',($1),${parseInt(this.user_id)})`;
 
       try {
         await client.query(query, [this.tech, this.description]);
@@ -53,6 +59,18 @@ class Project {
 
   static getAll = async () => {
     const query = `SELECT * FROM projects`;
+
+    try {
+      const { rows } = await client.query(query);
+      return rows;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  };
+
+  static getAllByUser = async (userid) => {
+    const query = `SELECT * FROM projects WHERE user_id = ${parseInt(userid)}`;
 
     try {
       const { rows } = await client.query(query);

@@ -60,7 +60,8 @@ app.use((req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-  const projects = await Project.getAll();
+  const { id: userId = null } = req.session.user || {};
+  const projects = userId ? await Project.getAllByUser(userId) : [];
   const returnData = {
     projects: projects,
     ...returnObj,
@@ -69,12 +70,18 @@ app.get("/", async (req, res) => {
   res.render("index", returnData);
 });
 
+app.use("/add-project", (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  next();
+});
+
 app.get("/add-project", (req, res) => {
   res.render("add-project", returnObj);
 });
 
 app.post("/add-project", upload.single("image"), async (req, res) => {
   const { name, start, end, description, tech } = req.body;
+  const { id: user_id } = req.session.user;
   const file = req.file;
 
   let fileExt = file.originalname.split(".");
@@ -91,6 +98,7 @@ app.post("/add-project", upload.single("image"), async (req, res) => {
     start_date: start,
     image_url: imageUrl,
     tech: tech,
+    user_id,
   });
 
   const result = await project.save();
