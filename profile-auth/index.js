@@ -2,7 +2,7 @@ const express = require("express");
 const hbs = require("hbs");
 const app = express();
 const session = require("express-session");
-const flash = require("connect-flash");
+const flash = require("express-flash");
 const {
   getDuration,
   iconBuild,
@@ -63,7 +63,6 @@ app.get("/", async (req, res) => {
   const projects = await Project.getAll();
   const returnData = {
     projects: projects,
-    success_message: req.flash("success_message")[0],
     ...returnObj,
   };
 
@@ -214,7 +213,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("register", { error_message: req.flash("error_message")[0] });
+  res.render("register");
 });
 
 app.post("/register", async (req, res) => {
@@ -239,10 +238,7 @@ app.post("/register", async (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("login", {
-    error_message: req.flash("error_message")[0],
-    success_message: req.flash("success_message")[0],
-  });
+  res.render("login");
 });
 
 app.post("/login", async (req, res) => {

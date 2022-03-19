@@ -5,11 +5,11 @@
     <script src="/public/assets/js/contact.js"></script>
     <script src="/public/assets/js/my-project.js"></script>
     <script src="/public/assets/js/confirmation.js"></script>
-    {{#if success_message}}
-      {{alertHtml success_message "successAlert"}}
+    {{#if messages.success_message}}
+      {{alertHtml messages.success_message "successAlert"}}
     {{/if}} 
-    {{#if error_message}}
-      {{alertHtml error_message "errorAlert"}}
+    {{#if messages.error_message}}
+      {{alertHtml messages.error_message "errorAlert"}}
     {{/if}} 
   </body>
 </html>
