@@ -1,0 +1,26 @@
+{{> header }}
+{{> navbar }}
+<section class="form-container">
+  <div class="w-70">
+    <h4>REGISTER YOUR ACCOUNT</h4>
+  <form class="form-field" action='/register' method='post' >
+    <div class="form-controller">
+      <label for="name">Your Name</label>
+      <input id="name" name='name' type="text" required />
+    </div>
+    <div class="form-controller my-3">
+      <label for="email">Email</label>
+      <input id="email" name='email' type="email" required />
+    </div>
+    <div class="form-controller">
+      <label for="Password">Password</label>
+      <input id="Password" name='password' type="password" required />
+    </div>   
+    <div class="button-container">
+      <button type="submit"  >Submit</button> 
+    </div>
+  </form>
+  </div>
+</section>
+
+{{> footer }}
