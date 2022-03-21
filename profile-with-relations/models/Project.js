@@ -57,20 +57,16 @@ class Project {
     };
   }
 
-  static getAll = async () => {
-    const query = `SELECT * FROM projects`;
+  static getAll = async (userid) => {
+    let query = `SELECT projects.id projectId,title,start_date,end_date,description,tech,image_url,user_id,projects.created_at projectCreatedAt,
+    projects.updated_at projectUpdatedAt,users.id userId,name,email
+    FROM projects INNER JOIN users ON projects.user_id=users.id`;
 
-    try {
-      const { rows } = await client.query(query);
-      return rows;
-    } catch (err) {
-      console.log(err);
-      return null;
+    if (userid) {
+      query += ` WHERE user_id = ${parseInt(userid)}`;
     }
-  };
 
-  static getAllByUser = async (userid) => {
-    const query = `SELECT * FROM projects WHERE user_id = ${parseInt(userid)}`;
+    query += ";";
 
     try {
       const { rows } = await client.query(query);

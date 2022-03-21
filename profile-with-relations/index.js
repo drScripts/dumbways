@@ -61,7 +61,7 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   const { id: userId = null } = req.session.user || {};
-  const projects = userId ? await Project.getAllByUser(userId) : [];
+  const projects = await Project.getAll(userId);
   const returnData = {
     projects: projects,
     ...returnObj,
@@ -86,7 +86,7 @@ app.post("/add-project", upload.single("image"), async (req, res) => {
 
   let fileExt = file.originalname.split(".");
   fileExt = "." + fileExt[fileExt.length - 1];
-  const newFileName = file.filename + fileExt;
+  const newFileName = Date.now() + "-" + file.filename + fileExt;
 
   const imageUrl = `/public/upload/${newFileName}`;
   const pathStorage = path.join(__dirname, imageUrl);
@@ -124,6 +124,28 @@ app.get("/detail-project/:id", async (req, res) => {
   const project = await Project.find(id);
 
   res.render("detail-project", { project, ...returnObj });
+});
+
+app.get("/contact", (req, res) => {
+  res.render("contact", returnObj);
+});
+
+app.post("/contact", (req, res) => {
+  const data = req.body;
+  console.log(data);
+  res.redirect("/contact");
+});
+
+app.get("/logout", (req, res) => {
+  req.session.user = undefined;
+
+  req.flash("success_message", "Success Logout, Goodbye!");
+  res.redirect("/");
+});
+
+app.use("/update-project", (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  next();
 });
 
 app.get("/update-project/:id", async (req, res) => {
@@ -178,6 +200,11 @@ app.post("/update-project/:id", upload.single("image"), async (req, res) => {
   }
 });
 
+app.use("/delete-project", (req, res, next) => {
+  if (!req.session.user) return res.redirect("/login");
+  next();
+});
+
 app.get("/delete-project/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -195,23 +222,6 @@ app.get("/delete-project/:id", async (req, res) => {
     "success_message",
     `Success Delete ${projectSelected.title} Project!`
   );
-  res.redirect("/");
-});
-
-app.get("/contact", (req, res) => {
-  res.render("contact", returnObj);
-});
-
-app.post("/contact", (req, res) => {
-  const data = req.body;
-  console.log(data);
-  res.redirect("/contact");
-});
-
-app.get("/logout", (req, res) => {
-  req.session.user = undefined;
-
-  req.flash("success_message", "Success Logout, Goodbye!");
   res.redirect("/");
 });
 

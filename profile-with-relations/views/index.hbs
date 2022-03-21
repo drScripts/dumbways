@@ -61,13 +61,17 @@
 </div>
 <section class="project-field bg-grey-soft p-4">
   <div class="container">
-    <h1 class="title-section text-center">My Project</h1>
+    {{#if user }}
+    <h1 class="title-section text-center">My Projects</h1>
+    {{else}}
+    <h1 class="title-section text-center">All Projects</h1>
+    {{/if}}
     
     <div class="project-list row">
         {{#each projects }}
           <div class="col-md-4 col-12 mb-4">
-            <div class="project-card">
-              <a href="/detail-project/{{this.id}}">
+            <div class="project-card pb-4">
+              <a href="/detail-project/{{this.projectid}}">
                 <img
                   src="{{this.image_url}}"
                   alt=""
@@ -81,11 +85,15 @@
                 <div class="list-icons d-flex gap-3" id="list-icons"> 
                   {{iconBuild this.tech }}
                 </div>
-                <div class="button-field">
-                  <a href="/update-project/{{this.id}}" class="btn">Edit</a>
-                  <a href="/delete-project/{{this.id}}" data-delete='{{this.id}}' class="hidden">Delete</a>
-                  <a href="#" onclick='deleteConfirm({{this.id}},"{{this.title}}")' class="btn">Delete</a>
-                </div>
+                {{#if ../user}}
+                  <div class="button-field">
+                    <a href="/update-project/{{this.projectid}}" class="btn">Edit</a>
+                    <a href="/delete-project/{{this.projectid}}" data-delete='{{this.projectid}}' class="hidden">Delete</a>
+                    <a href="#" onclick='deleteConfirm({{this.projectid}},"{{this.title}}")' class="btn">Delete</a>
+                  </div>
+                {{else}}
+                <span class="badge rounded-pill bg-secondary text-light mt-3">Authors : {{this.name}}</span>
+                {{/if}}
               </a>
             </div>
           </div>
