@@ -12,6 +12,7 @@ const {
   checkSelectedTech,
   safeString,
   alertHtml,
+  getActive,
 } = require("./helpers/hbs");
 
 const Project = require("./models/Project");
@@ -51,8 +52,9 @@ hbs.registerHelper("getInputDateValue", inputDateValueBuild);
 hbs.registerHelper("checkSelectedTech", checkSelectedTech);
 hbs.registerHelper("safeString", safeString);
 hbs.registerHelper("alertHtml", alertHtml);
+hbs.registerHelper("getActive", getActive);
 
-const returnObj = { user: null };
+const returnObj = { user: null, path: "/" };
 
 app.use((req, res, next) => {
   returnObj.user = req.session.user;
@@ -61,6 +63,8 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   const projects = await Project.getAll();
+
+  returnObj.path = "/";
   const returnData = {
     projects: projects,
     ...returnObj,
@@ -70,6 +74,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/add-project", (req, res) => {
+  returnObj.path = "/add-project";
   res.render("add-project", returnObj);
 });
 
@@ -213,7 +218,8 @@ app.use((req, res, next) => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("register");
+  returnObj.path = "/register";
+  res.render("register", returnObj);
 });
 
 app.post("/register", async (req, res) => {
@@ -238,7 +244,8 @@ app.post("/register", async (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("login");
+  returnObj.path = "/login";
+  res.render("login", returnObj);
 });
 
 app.post("/login", async (req, res) => {
