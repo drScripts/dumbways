@@ -136,6 +136,10 @@ function alertHtml(str, functionName) {
   return new hbs.handlebars.SafeString(returnStr);
 }
 
+function getActive(path, current) {
+  return path === current ? "active" : "";
+}
+
 module.exports = {
   iconBuild,
   getDuration,
@@ -145,4 +149,5 @@ module.exports = {
   checkSelectedTech,
   safeString,
   alertHtml,
+  getActive,
 };

@@ -12,6 +12,7 @@ const {
   checkSelectedTech,
   safeString,
   alertHtml,
+  getActive,
 } = require("./helpers/hbs");
 
 const Project = require("./models/Project");
@@ -24,6 +25,8 @@ const path = require("path");
 const upload = multer({ dest: os.tmpdir() });
 const { compareSync } = require("bcryptjs");
 
+const { appSecure } = require("./config");
+
 app.set("view engine", "hbs");
 app.use(express.urlencoded({ extended: false }));
 app.use("/public", express.static(__dirname + "/public"));
@@ -34,7 +37,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
-      httpOnly: true,
+      httpOnly: !appSecure,
+      secure: appSecure,
     },
   })
 );
@@ -51,8 +55,9 @@ hbs.registerHelper("getInputDateValue", inputDateValueBuild);
 hbs.registerHelper("checkSelectedTech", checkSelectedTech);
 hbs.registerHelper("safeString", safeString);
 hbs.registerHelper("alertHtml", alertHtml);
+hbs.registerHelper("getActive", getActive);
 
-const returnObj = { user: null };
+const returnObj = { user: null, path: "/" };
 
 app.use((req, res, next) => {
   returnObj.user = req.session.user;
@@ -62,6 +67,8 @@ app.use((req, res, next) => {
 app.get("/", async (req, res) => {
   const { id: userId = null } = req.session.user || {};
   const projects = await Project.getAll(userId);
+
+  returnObj.path = "/";
   const returnData = {
     projects: projects,
     ...returnObj,
@@ -76,6 +83,7 @@ app.use("/add-project", (req, res, next) => {
 });
 
 app.get("/add-project", (req, res) => {
+  returnObj.path = "/add-project";
   res.render("add-project", returnObj);
 });
 
@@ -231,7 +239,8 @@ app.use((req, res, next) => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("register");
+  returnObj.path = "/register";
+  res.render("register", returnObj);
 });
 
 app.post("/register", async (req, res) => {
@@ -256,7 +265,9 @@ app.post("/register", async (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("login");
+  returnObj.path = "/login";
+
+  res.render("login", returnObj);
 });
 
 app.post("/login", async (req, res) => {
@@ -282,7 +293,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
   console.log(`Server running on http://localhost:${PORT}`);
 });

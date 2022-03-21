@@ -6,4 +6,5 @@ module.exports = {
   dbHost: process.env.DATABASE_HOST,
   dbPort: process.env.DATABASE_PORT,
   dbName: process.env.DATABASE_NAME,
+  appSecure: process.env.APP_HTTPS === "true" || false,
 };
