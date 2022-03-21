@@ -8,7 +8,7 @@
     "dev": "nodemon index",
     "start": "node index",
     "start-dev": "start npm run migrate && npm run dev",
-    "migrate": "node -e require('./migrations').migrate()"
+    "migrate": "node ./migrations/index"
   },
   "author": "drScripts",
   "license": "ISC",

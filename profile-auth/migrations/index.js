@@ -52,9 +52,10 @@ const createTableUsers = async () => {
   }
 };
 
-module.exports.migrate = async () => {
-  await deleteAllTableIfExists();
-  await createTableProjects();
-  await createTableUsers();
-  process.exit(0);
-};
+deleteAllTableIfExists().then(() => {
+  createTableProjects().then(() => {
+    createTableUsers().then(() => {
+      process.exit(0);
+    });
+  });
+});
