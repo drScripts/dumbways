@@ -74,9 +74,10 @@ const createTableUsers = async () => {
   }
 };
 
-module.exports.migrate = async () => {
-  await deleteAllTableIfExists();
-  await createTableProjectsWithUserRelations();
-  await createTableUsers();
-  process.exit(0);
-};
+deleteAllTableIfExists().then(() => {
+  createTableProjectsWithUserRelations().then(() => {
+    createTableUsers().then(() => {
+      process.exit(0);
+    });
+  });
+});
