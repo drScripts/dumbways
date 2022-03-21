@@ -25,8 +25,6 @@ const path = require("path");
 const upload = multer({ dest: os.tmpdir() });
 const { compareSync } = require("bcryptjs");
 
-const { appSecure } = require("./config");
-
 app.set("view engine", "hbs");
 app.use(express.urlencoded({ extended: false }));
 app.use("/public", express.static(__dirname + "/public"));
@@ -37,7 +35,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
-      httpOnly: appSecure,
+      httpOnly: true,
     },
   })
 );
